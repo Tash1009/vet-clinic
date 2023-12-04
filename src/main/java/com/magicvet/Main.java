@@ -12,6 +12,7 @@ public class Main {
    static Scanner scanner = new Scanner(System.in);
 
    static String EMAIL_PATTERN = "^[a-zA-z0-9._%+-]+@[a-zA-z0-9._]+\\.[a-zA-z]{2,}$";
+   static String NAME_PATTERN = "^[a-zA-z-]{3,}$";
         public static void main(String[] args) {
             run ();
         }
@@ -37,29 +38,41 @@ public class Main {
         System.out.println(accepted ? "welcome to the Magic Vet!" : "Aplication has been bloced.");
         return accepted;
     }
-    static void registerNewClient(){
+    static void registerNewClient() {
         System.out.println("Please provide client detail.");
         System.out.print("Email:");
         String email = scanner.nextLine();
 
-        if (isEmailValid(email)){
-            Client client = buildClient(email);
-            System.out.println("New client: " + client.firstName + " " + client.lastName + " (" + client.email+ ")");
+
+        if (isEmailValid(email)) {
+            System.out.print("First name: ");
+            String firstName = scanner.nextLine();
+            if (isNameValid(firstName)) {
+                System.out.print("Last name: ");
+                String lastName = scanner.nextLine();
+                if (isNameValid(lastName)) {
+                    Client client = buildClient(email, firstName, lastName);
+                    System.out.println("New client: " + client.firstName + " " + client.lastName + " (" + client.email + ")");
+                } else {
+                    System.out.println("Provided last name is invalid.");
+                }
+
+            } else {
+                System.out.println("Provided first name is invalid.");
+            }
         } else {
             System.out.println("Provided email is invalid.");
         }
-
     }
 
-   static Client buildClient(String email) {
+
+
+
+   static Client buildClient(String email,String firstName, String lastName) {
        Client client = new Client();
        client.email = email;
-
-       System.out.println("First name: ");
-       client.firstName = scanner.nextLine();
-
-       System.out.println("Last name: ");
-       client.lastName = scanner.nextLine();
+       client.firstName = firstName;
+       client.lastName = lastName;
        return client;
 
     }
@@ -69,4 +82,10 @@ public class Main {
         Matcher matcher = pattern.matcher(email);
         return  matcher.matches();
     }
+    static boolean isNameValid(String name) {
+        Pattern pattern = Pattern.compile(NAME_PATTERN);
+        Matcher matcher = pattern.matcher(name);
+        return  matcher.matches();
+    }
+
 }
