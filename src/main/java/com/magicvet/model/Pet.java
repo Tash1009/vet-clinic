@@ -2,21 +2,28 @@ package main.java.com.magicvet.model;
 
 import java.util.Objects;
 
-public abstract class Pet {
+public class Pet {
     private String type;
     private String sex;
     private String age;
     private String name;
     private String ownerName;
+    private HealthState healthState;
 
+    public Pet(){}
+
+    public Pet(HealthState healthState){
+        this.healthState =healthState;
+    }
     @Override
-    public String toString(){
+    public String toString() {
         return "Pet {"
                 + " type = " + type
                 + ", name = " + name
                 + ", sex = " + sex
                 + ", age = " + age
-                + " }" ;
+                + ", health state = " + healthState
+                + " }";
     }
 
     @Override
@@ -24,12 +31,12 @@ public abstract class Pet {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pet pet = (Pet) o;
-        return Objects.equals(type, pet.type) && Objects.equals(sex, pet.sex) && Objects.equals(age, pet.age) && Objects.equals(name, pet.name) && Objects.equals(ownerName, pet.ownerName);
+        return Objects.equals(type, pet.type) && Objects.equals(sex, pet.sex) && Objects.equals(age, pet.age) && Objects.equals(name, pet.name) && Objects.equals(healthState, pet.healthState) && Objects.equals(ownerName, pet.ownerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, sex, age, name, ownerName);
+        return Objects.hash(type, sex, age, name, healthState, ownerName);
     }
 
     public String getType() {
@@ -70,5 +77,30 @@ public abstract class Pet {
 
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
+    }
+
+    public HealthState getHealthState() {
+        return healthState;
+    }
+
+    public void setHealthState(HealthState healthState) {
+        this.healthState = healthState;
+    }
+
+    public enum HealthState {
+        POOR(1),
+        FAIR(2),
+        GOOD(3),
+        EXCELLENT(4),
+        UNKNOWN(0);
+        private final int value;
+
+        HealthState(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 }

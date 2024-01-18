@@ -5,6 +5,8 @@ import main.java.com.magicvet.model.Cat;
 import main.java.com.magicvet.model.Dog;
 import main.java.com.magicvet.model.Pet;
 
+import static main.java.com.magicvet.model.Pet.*;
+
 public class PetService {
     private static final String DOG_TYPE = "dog";
     private static final String CAT_TYPE = "cat";
@@ -35,6 +37,10 @@ public class PetService {
 
         System.out.print("Sex ( male / female ): ");
         pet.setSex(Main.scanner.nextLine());
+
+        System.out.print("Health state (EXCELLENT / GOOD / FAIR / POOR ): ");
+        String healthState  = Main.scanner.nextLine();
+        pet.setHealthState(Pet.HealthState.valueOf(healthState));
 
         if (type.equals(DOG_TYPE)){
             System.out.print( "Size (XS / S / M / L / XL) :" );
