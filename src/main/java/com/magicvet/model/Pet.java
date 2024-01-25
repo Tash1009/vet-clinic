@@ -109,4 +109,12 @@ public class Pet {
             return value;
         }
     }
+
+    public LocalDateTime getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public static DateTimeFormatter getFORMATTER() {
+        return FORMATTER;
+    }
 }
